@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>每周一问，与世界分享你的看法</title>
+<link href="css/reset.css" rel="stylesheet">
+<script src="./xml.js"></script>
+<script type="text/javascript" src="./dist/nebulas.js"></script>
+
+<script type="text/javascript" src="./dist/nebPay.js"></script>
+
+<style>
+	    
+		button {
+
+			
+
+			font-size: 1px;
+		}
+
+
+        body {
+    
+        background:url("./picture2.jpg") repeat-y;
+        background-size: 100%;
+		color: white;
+        }
+        .opa {
+
+            opacity: 0.4;
+		}
+		
+		textarea{
+			opacity: 0.4;
+
+		}
+     
+        
+	.main{
+		width: 800px;
+		margin:20px auto;
+	}
+	h1{
+		font-weight:bold;
+	}
+	span{
+		display: inline-block;
+		width: 200px;
+		height: 25px;
+		line-height: 25px;
+		vertical-align: center;
+		text-align: left;
+		margin-bottom: 10px;
+	}
+	.tag{
+		font-size: 13px;
+		margin-left: 370px;
+		vertical-align: bottom;
+		text-align: center;
+		margin-bottom: 0;	
+	}
+	.text{
+		width: 750px;
+		height: 100px;
+		margin:0 auto;
+
+		resize:none;
+	}
+	
+	input{
+		display: inline-block;
+		width: 80px;
+		height: 50px;
+		background: #E2526F;
+		border: 0;
+		margin-left: 670px;
+		margin-top: 10px;
+	}
+	.creatediv{
+		width: 675px;
+		height: 80px;
+		border: 1px solid gray;
+		position: relative;
+		margin-top: 10px;
+		padding-left: 75px;
+		word-wrap:break-word; 
+        word-break:break-all; 
+	}
+	.createinput{
+		width: 80px;
+		height: 30px;
+		position:absolute;
+		right: 5px;
+		bottom:5px;
+	}
+	.createimg{
+		width: 50px;
+		height: 50px;
+		position: absolute;
+		top: 15px;
+		left: 15px;
+	}
+	.createdivs{
+		width:600px;
+		height:50px;
+		position: absolute;
+		top: 15px;
+		left: 85px;
+	}
+	.td1{
+  BORDER-RIGHT: #cccccc 0px solid; 
+  BORDER-TOP: #cccccc 0px solid; 
+  PADDING-LEFT: 4px; 
+  BORDER-LEFT:  #cccccc 0px solid; 
+  CURSOR: hand; 
+  color: white;
+   BORDER-BOTTOM: #cccccc 0px solid; 
+   
+
+
+
+}
+.td2{
+
+  PADDING-RIGHT: 1px;
+  display: none ;
+  PADDING-LEFT: 1px;
+  PADDING-BOTTOM: 1px; 
+  PADDING-TOP: 1px;
+  color: white;
+  
+
+}
+.div1{
+
+
+BORDER-RIGHT: #808080 0px solid; 
+PADDING-RIGHT: 4px;
+ BORDER-TOP: #808080 0px solid;
+  PADDING-LEFT: 4px; 
+  PADDING-BOTTOM: 4px; 
+  BORDER-LEFT: #808080 0px solid; 
+  LINE-HEIGHT: 150%; 
+  PADDING-TOP: 4px;
+   BORDER-BOTTOM: #808080 0px solid; 
+   color: white;
+
+}
+.tb{
+
+  PADDING-RIGHT: 2px; 
+  PADDING-LEFT: 2px;
+   PADDING-BOTTOM: 2px; 
+   PADDING-TOP: 2px
+}
+
+</style>
+<script>
+		
+		function show(c_Str,imgg)
+		{  console.log("1");
+		var myDiv = document.getElementById(c_Str);
+		var finalStyle = document.defaultView.getComputedStyle(myDiv, null);
+		if(finalStyle.display =='none')
+
+		{document.all(c_Str).style.display ='block';
+		console.log("2");
+		document.all(imgg).src='images/2.gif'}
+		else{document.all(c_Str).style.display ='none';
+		console.log("3");
+		document.all(imgg).src='images/1.gif'}}
+
+</script>
+		
+	
+</head>
+
+<body id="body">
+    <div class="main">
+	
+		<h1>nebulas-exchange-科技板块</h1>
+		<hr>
+		<hr>
+		<p>发表你的问题</p>
+		
+    	<textarea id="text" cols="60" rows="20" maxlength="200" class="text opa"></textarea><br>
+    	<input type="button" value="发表" id="ipt">
+    	<div id="txt" >
+				
+
+    	</div>
+    </div>
+    <div style="text-align:center;">
+
+</div>
+<script>
+
+
+
+</script>		
+</body>
+<script>
+	var dappContactAddress = "n1vF4mJR7aPSBGgSg5fLWZxieoarzTrwwgF";
+    var nebulas = require("nebulas"), Account = Account, neb = new nebulas.Neb();
+    neb.setRequest(new nebulas.HttpRequest("https://mainnet.nebulas.io"))
+
+
+    var NebPay = require("nebpay");     //https://github.com/nebulasio/nebPay
+    var nebPay = new NebPay();
+    var serialNumber;
+  
+
+	var ipt = document.getElementById("ipt");
+	var txt = document.getElementById('txt');
+	var textarea = document.getElementById("text");
+	var nnn=1;
+	var from = dappContactAddress
+        var value = "0";
+        var nonce = "0"
+        var gas_price = "1000000";
+		var gas_limit = "2000000";
+		var number=0;
+
+   
+	function UpComment(cc){
+		var com_id="comment"+cc;
+		var b = document.getElementById(com_id);
+		bb=b.value
+		console.log(bb+cc);
+		//上传至星云
+		var to = dappContactAddress;
+        var value = "0";
+        var callFunction = "save";
+		var textValue = textarea.value.LTrim();	
+		var callArgs = "[\"" +cc+ "\",\""+bb+"\"]";
+		serialNumber = nebPay.call(to, value, callFunction, callArgs, {    //使用nebpay的call接口去调用合约,
+            listener: function (resp) {
+                console.log("thecallback is " + resp)
+            }
+        });	
+        
+		b.value=" ";
+		//创建至
+		console.log(nnn);
+		var tdd2=document.getElementById("t"+cc);
+		var divv2=document.createElement("div");
+		divv2.innerHTML="@"+bb+"<hr>";
+		var hr=document.createElement("hr");
+		if(tdd2.children.length==0){
+				tdd2.appendChild(divv2);
+				
+
+			}else{
+				tdd2.insertBefore(divv2,get_firstChild(tdd2))
+				
+			}
+		
+		
+	}
+   
+
+
+
+	function ping(ttt,tdd1,aa){
+
+	
+		
+		tdd2.appendChild(hr);
+		tdd2.appendChild(divv2);
+		tdd2.appendChild(divv3);
+		tdd2.appendChild(ta);
+		tdd2.appendChild(bt);
+		tdd1.setAttribute("onclick",'show("'+bb+'",'+'"'+aa+'")');
+
+	}
+	number=10;
+	function get(){
+		console.log("111");
+		var callFunction = "getall";
+        var callArgs = "[\""+"\"]";
+
+        var contract = {
+            "function": callFunction,
+            "args": callArgs
+		}
+		
+
+		
+			console.log("222");
+		   
+			
+			neb.api.call(from, dappContactAddress, value, nonce, gas_price, gas_limit, contract).then(function (resp) {
+            var result = resp.result;
+            
+			result = JSON.parse(result);
+			for(var q=0;q<10;q++){
+				if(result[q][0]){
+					var textValue=result[q][0].content;
+					console.log(textValue);
+					if(1){
+					var imgs = document.createElement("img");
+					
+					imgs.src="images/1.gif";
+					imgs.id="i"+nnn;
+					aa="i"+nnn;
+					
+					var tt = document.createElement("table");
+					
+					var trr = document.createElement("tr");
+					var tdd = document.createElement("td");
+
+					var ttt =document.createElement("table");
+					ttt.setAttribute("class","tb");
+					var trr1 = document.createElement("tr");
+					
+					var divv1 = document.createElement("div");
+
+
+					divv1.innerHTML=textValue+"<hr><hr>";
+					//上传星云链子  配合id
+
+
+					var tdd1 =document.createElement("td");
+					
+					tdd1.setAttribute("class","td1");
+					//   评论区
+					var trr2 = document.createElement("tr");
+					var tdd2 = document.createElement("td");
+					tdd2.id="t"+nnn;
+					bb="t"+nnn;
+					console.log(nnn);
+					tdd2.setAttribute("class","td2");
+				
+					var ta =document.createElement("textarea");
+					ta.id="comment"+nnn;
+					var cc=nnn;
+					
+					var hr=document.createElement("hr");
+					var bt=document.createElement("button");
+					//bt.setAttribute("style","display:inline;");
+					bt.innerHTML="评论";
+					
+						
+					tt.appendChild(trr);
+					trr.appendChild(tdd);
+					tdd.appendChild(ttt);
+					ttt.appendChild(trr1);
+					trr1.appendChild(tdd1);
+					tdd1.appendChild(imgs);
+					tdd1.appendChild(divv1);
+					ttt.appendChild(trr2);
+					trr2.appendChild(tdd2);
+					tdd2.appendChild(ta);
+					tdd2.appendChild(bt);
+					//ping(ttt,tdd1,aa);
+
+					tdd1.setAttribute("onclick",'show("'+bb+'",'+'"'+aa+'")');//bb only string
+					// if ta    transpot  string
+					bt.setAttribute("onclick",'UpComment("'+cc+'")');
+					//加载评论
+					for(var b=1;b<10;b++){
+						if(result[q][b]){
+							var divv2=document.createElement("div");
+							divv2.innerHTML="@"+result[q][b].content+"<hr>";
+		
+							if(tdd2.children.length==0){
+								tdd2.appendChild(divv2);
+				
+
+							}else{
+								tdd2.insertBefore(divv2,get_firstChild(tdd2))
+				
+							}
+							
+
+						}
+
+
+					}
+					if(txt.children.length==0){
+
+						txt.appendChild(tt);
+						}else{
+						txt.insertBefore(tt,get_firstChild(txt))
+					}
+
+					nnn=nnn+1;
+					}
+					
+				}
+
+			}
+
+
+
+
+			
+			
+			
+		
+		
+		
+			
+
+        	}).catch(function (err) {console.log("error :" + err.message);})
+		
+
+		
+
+
+
+	}
+	
+	
+	
+	
+	
+	window.onload =get;
+
+
+	ipt.onclick = function(){
+		
+        var to = dappContactAddress;
+        var value = "0";
+        var callFunction = "save";
+		var textValue = textarea.value.LTrim();	
+		var callArgs = "[\"" +nnn + "\",\""+textValue+"\"]";
+		serialNumber = nebPay.call(to, value, callFunction, callArgs, {    //使用nebpay的call接口去调用合约,
+            listener: function (resp) {
+                console.log("thecallback is " + resp)
+            }
+        });	
+        
+        
+
+      
+		
+		
+		textarea.value="";
+		if(textValue.length>0 ){
+		
+			var imgs = document.createElement("img");
+			
+			imgs.src="images/1.gif";
+			imgs.id="i"+nnn;
+			aa="i"+nnn;
+			
+			var tt = document.createElement("table");
+			
+			var trr = document.createElement("tr");
+			var tdd = document.createElement("td");
+
+			var ttt =document.createElement("table");
+			ttt.setAttribute("class","tb");
+			var trr1 = document.createElement("tr");
+			
+			
+			
+			
+			
+			var divv1 = document.createElement("div");
+
+
+			divv1.innerHTML=textValue+"<hr><hr>";
+			//上传星云链子  配合id
+
+
+			var tdd1 =document.createElement("td");
+			
+			tdd1.setAttribute("class","td1");
+			//   评论区
+			var trr2 = document.createElement("tr");
+		    var tdd2 = document.createElement("td");
+		    tdd2.id="t"+nnn;
+		    bb="t"+nnn;
+			console.log(nnn);
+		    tdd2.setAttribute("class","td2");
+		 
+		    var ta =document.createElement("textarea");
+			ta.id="comment"+nnn;
+			var cc=nnn;
+		    var hr=document.createElement("hr");
+		    var bt=document.createElement("button");
+		   // bt.setAttribute("style","display:inline;");
+			bt.innerHTML="发表";
+			
+			
+				
+			tt.appendChild(trr);
+			trr.appendChild(tdd);
+			tdd.appendChild(ttt);
+			ttt.appendChild(trr1);
+			trr1.appendChild(tdd1);
+			tdd1.appendChild(imgs);
+			tdd1.appendChild(divv1);
+			ttt.appendChild(trr2);
+			trr2.appendChild(tdd2);
+			tdd2.appendChild(ta);
+			tdd2.appendChild(bt);
+			//ping(ttt,tdd1,aa);
+
+			tdd1.setAttribute("onclick",'show("'+bb+'",'+'"'+aa+'")');//bb only string
+			  // if ta    transpot  string
+			bt.setAttribute("onclick",'UpComment("'+cc+'")');
+			nnn=nnn+1;
+
+			if(txt.children.length==0){
+				txt.appendChild(tt);
+
+			}else{
+				txt.insertBefore(tt,get_firstChild(txt))
+			}
+			
+		}
+		
+		
+
+	}
+</script>
+</html>
