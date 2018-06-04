@@ -15,7 +15,7 @@
 
 			vertical-align:50%;
 
-			font-size: 1px;
+			
 		}
 
 
@@ -236,10 +236,12 @@ PADDING-RIGHT: 4px;
 		serialNumber = nebPay.call(to, value, callFunction, callArgs, {    //使用nebpay的call接口去调用合约,
             listener: function (resp) {
                 console.log("thecallback is " + resp)
-            }
-        });	
-        
-		b.value=" ";
+				if(typeof resp == "string"){
+                console.log("reject! cancel");
+                alert("已取消上传");
+               
+            	}else{
+					b.value=" ";
 		//创建至
 		console.log(nnn);
 		var tdd2=document.getElementById("t"+cc);
@@ -254,6 +256,14 @@ PADDING-RIGHT: 4px;
 				tdd2.insertBefore(divv2,get_firstChild(tdd2))
 				
 			}
+
+
+					alert("上传成功！");
+				}
+            }
+        });	
+        
+		
 		
 		
 	}
@@ -428,15 +438,13 @@ PADDING-RIGHT: 4px;
 		serialNumber = nebPay.call(to, value, callFunction, callArgs, {    //使用nebpay的call接口去调用合约,
             listener: function (resp) {
                 console.log("thecallback is " + resp)
-            }
-        });	
-        
-        
+				if(typeof resp == "string"){
+                console.log("reject! cancel");
+                alert("已取消上传");
+               
+            }else{
 
-      
-		
-		
-		textarea.value="";
+					textarea.value="";
 		if(textValue.length>0 ){
 		
 			var imgs = document.createElement("img");
@@ -513,6 +521,23 @@ PADDING-RIGHT: 4px;
 			
 		}
 		
+
+
+
+
+				alert("上传成功！");
+			}
+
+
+            }
+        });	
+        
+        
+
+      
+		
+		
+	
 		
 
 	}
